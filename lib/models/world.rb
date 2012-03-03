@@ -4,13 +4,13 @@ class World
     @previous_generations = []
     @current_generation = Generation.new
   end
-  def populate(cells)
-    @current_generation.populate(cells)
+  def populate!(cells)
+    @current_generation.populate!(cells)
   end
-  def populate_from_pattern(str)
-    @current_generation.populate_from_pattern(str)
+  def populate_from_pattern!(str)
+    @current_generation.populate_from_pattern!(str)
   end
-  def evolve
+  def evolve!
     @previous_generations << @current_generation
     pgen = @current_generation
     @current_generation = Generation.new
@@ -18,7 +18,6 @@ class World
     computed_cells = {}
     living_cells = []
     pgen.cells.each do |cell|
-      # see if the empty cells around the cell should come alive
       (-1..1).each do |ix|
         (-1..1).each do |iy|
           next if ix==0 && iy==0
@@ -39,6 +38,6 @@ class World
       living_cells << Cell.new(cell.x,cell.y) unless cell.will_die?
     end
 
-    populate(living_cells)
+    populate!(living_cells)
   end
 end

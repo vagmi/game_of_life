@@ -3,7 +3,7 @@ describe Cell do
   describe "#neighbors" do
     before do
       @world = World.new
-      @world.populate_from_pattern(File.read(File.join(FIXTURES_PATH,'block.pattern')))
+      @world.populate_from_pattern!(File.read(File.join(FIXTURES_PATH,'block.pattern')))
     @cell = @world.current_generation.cell_at(1,1)
     end
     it "should have neighbors" do

@@ -9,15 +9,15 @@ describe World do
     end
   end
 
-  describe "#evolve" do
+  describe "#evolve!" do
     describe "box pattern" do
       before do
         @pattern = File.read(File.join(FIXTURES_PATH,"block.pattern"))
-        subject.populate_from_pattern(@pattern)
+        subject.populate_from_pattern!(@pattern)
         @old_generation = subject.current_generation
       end
       it "should evolve into the same pattern" do
-        subject.evolve
+        subject.evolve!
         subject.previous_generations.last.should == @old_generation
         subject.current_generation.should_not == subject.previous_generations.last
         subject.current_generation.cell_at(1,1).should_not be_nil
@@ -30,11 +30,11 @@ describe World do
     describe "boat pattern" do
       before do
         @pattern = File.read(File.join(FIXTURES_PATH,"boat.pattern"))
-        subject.populate_from_pattern(@pattern)
+        subject.populate_from_pattern!(@pattern)
         @old_generation = subject.current_generation
       end
       it "should evolve into the same pattern" do
-        subject.evolve
+        subject.evolve!
         subject.previous_generations.last.should == @old_generation
         subject.current_generation.should_not == subject.previous_generations.last
         subject.current_generation.population.should == 5
@@ -53,11 +53,11 @@ describe World do
     describe "blinker pattern" do
       before do
         @pattern = File.read(File.join(FIXTURES_PATH,"blinker.pattern"))
-        subject.populate_from_pattern(@pattern)
+        subject.populate_from_pattern!(@pattern)
         @old_generation = subject.current_generation
       end
       it "should flip vertically" do
-        subject.evolve
+        subject.evolve!
         subject.previous_generations.last.should == @old_generation
         subject.current_generation.should_not == subject.previous_generations.last
         subject.current_generation.population.should == 3
@@ -73,8 +73,8 @@ describe World do
 
       end
       it "should return to normal when evolved twice" do
-        subject.evolve
-        subject.evolve
+        subject.evolve!
+        subject.evolve!
         subject.current_generation.population.should == 3
         subject.current_generation.cell_at(1,1).should be_nil
         subject.current_generation.cell_at(1,2).should be_nil
@@ -90,11 +90,11 @@ describe World do
     describe "toad pattern" do
       before do
         @pattern = File.read(File.join(FIXTURES_PATH,"toad.pattern"))
-        subject.populate_from_pattern(@pattern)
+        subject.populate_from_pattern!(@pattern)
         @old_generation = subject.current_generation
       end
-      it "should evolve into the same pattern" do
-        subject.evolve
+      it "should open same pattern" do
+        subject.evolve!
         subject.previous_generations.last.should == @old_generation
         subject.current_generation.should_not == subject.previous_generations.last
         subject.current_generation.population.should == 6
